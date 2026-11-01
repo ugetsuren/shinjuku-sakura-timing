@@ -3,7 +3,12 @@
 対象は既存の Firebase `shinjukugyoensimulate`、東京の Standard Firestore `(default)`、公開GitHub `ugetsuren/shinjuku-sakura-timing` です。
 無料のSparkプランを維持し、Cloud Functionsや有料プランは使用しません。
 
-## 第1章 → 1.1 Googleの初回認証と自動公開設定【未着手】
+## 第1章 → 1.1 Googleの初回認証と自動公開設定【完了】
+
+2026-11-01に専用サービスアカウント・GitHub短期認証・リポジトリ変数・集計用インデックス2件を設定しました。
+GitHub ActionsからのHosting公開と全配信ファイルのSHA-256照合が成功しています。
+既存の推定結果2件はそのまま参照でき、ルールの公開権限は変更していません。
+以下は構成を確認・再現するための手順です。同じ環境での再実行は不要です。
 
 目的：GitHubのmainブランチだけが既存Hostingへ公開できるようにします。
 対象アプリ：Google Cloud Shell、GitHub。
@@ -49,7 +54,7 @@ GitHubのActions → Firebase Hosting → Run workflowでmainを実行します�
 完了条件はワークフロー成功に加え、公開 `/release.json` と全配信ファイルのハッシュがコミットと一致することです。
 設定がない状態では公開ワークフローは明示的に失敗し、公開成功とは報告しません。
 
-Codexには「1.1.1〜1.1.3を完了」と、失敗した場合は秘密情報を除いたエラー文を報告してください。
+1.1.1〜1.1.3は完了済みです。将来別環境へ移す場合は、失敗した手順の番号と秘密情報を除いたエラー文を記録してください。
 
 ## 更新と復元
 
