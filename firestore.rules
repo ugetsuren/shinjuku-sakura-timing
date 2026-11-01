@@ -1,0 +1,40 @@
+// Existing production rules, captured from the Firebase console on 2026-11-01.
+// No permission expansion is needed for the GitHub migration.
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /simulations/{simulationId} {
+      allow read: if true;
+      allow create: if validSimulation();
+      allow update, delete: if false;
+    }
+    function validSimulation() {
+      let data = request.resource.data;
+      return data.keys().hasAll([
+          'classification', 'centerDay', 'innerStartDay', 'innerEndDay',
+          'winter', 'february', 'march', 'coldSnap', 'urbanHeat',
+          'microclimate', 'createdAt'
+        ])
+        && data.keys().hasOnly([
+          'classification', 'centerDay', 'innerStartDay', 'innerEndDay',
+          'winter', 'february', 'march', 'coldSnap', 'urbanHeat',
+          'microclimate', 'createdAt'
+        ])
+        && data.classification in [
+          '休眠・加温競合型', '寒暖変動型', '早期開花型',
+          '晩期開花型', '平年近傍型'
+        ]
+        && data.centerDay is int && data.centerDay >= 55 && data.centerDay <= 125
+        && data.innerStartDay is int && data.innerStartDay >= 50 && data.innerStartDay <= 130
+        && data.innerEndDay is int && data.innerEndDay >= 50 && data.innerEndDay <= 130
+        && data.innerStartDay <= data.innerEndDay
+        && data.winter is number && data.winter >= -3 && data.winter <= 3
+        && data.february is number && data.february >= -3 && data.february <= 3
+        && data.march is number && data.march >= -3 && data.march <= 3
+        && data.coldSnap is number && data.coldSnap >= 0 && data.coldSnap <= 14
+        && data.urbanHeat is number && data.urbanHeat >= 0 && data.urbanHeat <= 1.5
+        && data.microclimate is number && data.microclimate >= -2 && data.microclimate <= 2
+        && data.createdAt == request.time;
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "simulations",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "classification",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "centerDay",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "simulations",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "classification",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "centerDay",
+          "order": "DESCENDING"
+        }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}
