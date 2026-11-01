@@ -41,6 +41,7 @@ jobs:
           project_id: shinjukugyoensimulate
           workload_identity_provider: ${{ vars.GCP_WORKLOAD_IDENTITY_PROVIDER }}
           service_account: ${{ vars.FIREBASE_DEPLOY_SERVICE_ACCOUNT }}
+          token_format: access_token
       - name: Deploy only the existing Hosting site
         run: npx -y firebase-tools@latest deploy --only hosting --project shinjukugyoensimulate --non-interactive
       - run: npm run verify:release
